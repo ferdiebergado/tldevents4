@@ -110,9 +110,23 @@
       <table class="table table-bordered table-hover table-responsive">
         <thead class="thead-light">
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col" v-for="column in columns" :key="column.id" width="20%">{{ column.name }}</th>
-            <th scope="col">Action(s)</th>
+            <th scope="col" width="5%">ID</th>
+            <th
+              scope="col"
+              v-for="column in columns"
+              :key="column.id"
+              :width="colWidths[column.id - 1]"
+            >
+              {{ column.name }}
+              <a
+                class="btn btn-light btn-sm float-right"
+                @click="updateSort(column.id, column.name)"
+                title="Click to sort column"
+              >
+                <i class="fas" :class="sort_icons[column.id]"></i>
+              </a>
+            </th>
+            <th scope="col" width="15%">Action(s)</th>
           </tr>
         </thead>
         <tbody>
@@ -141,7 +155,9 @@
               </td>
             </tr>
           </template>
-          <tr v-else>No records found.</tr>
+          <tr v-else>
+            <td colspan="6" class="text-center">No records found.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -172,10 +188,16 @@ export default {
       page: 1,
       perpage: 10,
       columns: this.headers,
+      colWidths: ["33%", "23%", "12%", "12%"],
       search: "",
       error: "",
       errors: [],
-      loading: false
+      loading: false,
+      sort_field: "start_date",
+      sort_asc: false,
+      sort_icon_prefix: "fa-sort-amount-",
+      sort_icons: [],
+      dir: "up"
     };
   },
   computed: {
@@ -184,6 +206,17 @@ export default {
     },
     isLastPage: function() {
       return this.meta.current_page === this.meta.last_page;
+    },
+    sortDir: function() {
+      if (this.sort_asc) {
+        this.dir = "down";
+        return "asc";
+      }
+      this.dir = "up";
+      return "desc";
+    },
+    sortIcon: function() {
+      return this.sort_icon_prefix + this.dir;
     }
   },
   created() {
@@ -199,7 +232,9 @@ export default {
           params: {
             per_page: this.perpage,
             page: this.page,
-            search: this.search
+            search: this.search,
+            sort_field: this.sort_field,
+            sort_dir: this.sortDir
           }
         })
         .then(res => {
@@ -221,7 +256,7 @@ export default {
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
             console.log(error.request);
-            this.error = error.request;
+            this.error = error.request.message;
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log("Error", error.message);
@@ -241,11 +276,21 @@ export default {
       this.fetchData();
     },
     firstPage() {
-      this.page = 1;
+      this.resetPage();
       this.fetchData();
     },
     lastPage() {
       this.page = this.meta.last_page;
+      this.fetchData();
+    },
+    resetPage() {
+      this.page = 1;
+    },
+    updateSort(index, field) {
+      this.sort_icons[index] = this.sortIcon;
+      this.sort_field = field.toLowerCase().replace(" ", "_");
+      this.sort_asc = !this.sort_asc;
+      this.resetPage();
       this.fetchData();
     }
   }

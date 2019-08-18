@@ -19,12 +19,17 @@ class EventController extends Controller
     {
         $request = app()->make('request');
         $this->validate($request, [
-            'per_page' => 'required|integer', Rule::in([10, 25, 50, 100])
+            'per_page' => 'required|integer', Rule::in([10, 25, 50, 100]),
+            // 'sort_field' => Rule::in([])
         ]);
+        $event = Event::query();
         if ($request->filled('search')) {
-            return new EventCollection(Event::where('title', 'like', "%$request->search%")->orWhere('venue', 'like', "%$request->search%")->paginate($request->per_page));
+            $event->where('title', 'like', "%$request->search%")->orWhere('venue', 'like', "%$request->search%");
         }
-        return new EventCollection(Event::latest('start_date')->paginate($request->per_page));
+        if ($request->filled('sort_field')) {
+            $event->orderBy($request->sort_field, $request->sort_dir);
+        }
+        return new EventCollection($event->paginate($request->per_page));
     }
 
     /**

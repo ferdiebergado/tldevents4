@@ -2078,6 +2078,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     route: {
@@ -2100,10 +2116,16 @@ __webpack_require__.r(__webpack_exports__);
       page: 1,
       perpage: 10,
       columns: this.headers,
+      colWidths: ["33%", "23%", "12%", "12%"],
       search: "",
       error: "",
       errors: [],
-      loading: false
+      loading: false,
+      sort_field: "start_date",
+      sort_asc: false,
+      sort_icon_prefix: "fa-sort-amount-",
+      sort_icons: [],
+      dir: "up"
     };
   },
   computed: {
@@ -2112,6 +2134,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     isLastPage: function isLastPage() {
       return this.meta.current_page === this.meta.last_page;
+    },
+    sortDir: function sortDir() {
+      if (this.sort_asc) {
+        this.dir = "down";
+        return "asc";
+      }
+
+      this.dir = "up";
+      return "desc";
+    },
+    sortIcon: function sortIcon() {
+      return this.sort_icon_prefix + this.dir;
     }
   },
   created: function created() {
@@ -2128,7 +2162,9 @@ __webpack_require__.r(__webpack_exports__);
         params: {
           per_page: this.perpage,
           page: this.page,
-          search: this.search
+          search: this.search,
+          sort_field: this.sort_field,
+          sort_dir: this.sortDir
         }
       }).then(function (res) {
         var response = res.data;
@@ -2148,7 +2184,7 @@ __webpack_require__.r(__webpack_exports__);
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
           console.log(error.request);
-          _this.error = error.request;
+          _this.error = error.request.message;
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error", error.message);
@@ -2168,11 +2204,21 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     firstPage: function firstPage() {
-      this.page = 1;
+      this.resetPage();
       this.fetchData();
     },
     lastPage: function lastPage() {
       this.page = this.meta.last_page;
+      this.fetchData();
+    },
+    resetPage: function resetPage() {
+      this.page = 1;
+    },
+    updateSort: function updateSort(index, field) {
+      this.sort_icons[index] = this.sortIcon;
+      this.sort_field = field.toLowerCase().replace(" ", "_");
+      this.sort_asc = !this.sort_asc;
+      this.resetPage();
       this.fetchData();
     }
   }
@@ -40415,17 +40461,51 @@ var render = function() {
             _c(
               "tr",
               [
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("ID")]),
+                _c("th", { attrs: { scope: "col", width: "5%" } }, [
+                  _vm._v("ID")
+                ]),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _c(
                     "th",
-                    { key: column.id, attrs: { scope: "col", width: "20%" } },
-                    [_vm._v(_vm._s(column.name))]
+                    {
+                      key: column.id,
+                      attrs: {
+                        scope: "col",
+                        width: _vm.colWidths[column.id - 1]
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(column.name) +
+                          "\n            "
+                      ),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-light btn-sm float-right",
+                          attrs: { title: "Click to sort column" },
+                          on: {
+                            click: function($event) {
+                              return _vm.updateSort(column.id, column.name)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas",
+                            class: _vm.sort_icons[column.id]
+                          })
+                        ]
+                      )
+                    ]
                   )
                 }),
                 _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Action(s)")])
+                _c("th", { attrs: { scope: "col", width: "15%" } }, [
+                  _vm._v("Action(s)")
+                ])
               ],
               2
             )
@@ -40515,7 +40595,13 @@ var render = function() {
                       ]
                     )
                   })
-                : _c("tr", [_vm._v("No records found.")])
+                : _c("tr", [
+                    _c(
+                      "td",
+                      { staticClass: "text-center", attrs: { colspan: "6" } },
+                      [_vm._v("No records found.")]
+                    )
+                  ])
             ],
             2
           )
