@@ -1897,9 +1897,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    text: String
+    text: String,
+    icon: String
   },
   data: function data() {
     return {
@@ -1927,6 +1931,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2183,13 +2188,14 @@ __webpack_require__.r(__webpack_exports__);
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
-          console.log(error.request);
+          console.log("error.request: ", error.request);
           _this.error = error.request.message;
+          _this.errors = error.request.message.errors;
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error", error.message);
           _this.error = error.message;
-          _this.errors = error.errors;
+          _this.errors = error.message.errors;
         } //   console.log(error.config);
 
       });
@@ -40162,7 +40168,7 @@ var render = function() {
         }
       }
     },
-    [_vm._v(_vm._s(_vm.txt))]
+    [_c("i", { class: _vm.icon }), _vm._v("\n  " + _vm._s(_vm.txt) + "\n")]
   )
 }
 var staticRenderFns = []
@@ -40461,15 +40467,21 @@ var render = function() {
             _c(
               "tr",
               [
-                _c("th", { attrs: { scope: "col", width: "5%" } }, [
-                  _vm._v("ID")
-                ]),
+                _c(
+                  "th",
+                  {
+                    staticClass: "text-center",
+                    attrs: { scope: "col", width: "5%" }
+                  },
+                  [_vm._v("ID")]
+                ),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _c(
                     "th",
                     {
                       key: column.id,
+                      staticClass: "text-center",
                       attrs: {
                         scope: "col",
                         width: _vm.colWidths[column.id - 1]
@@ -40503,9 +40515,14 @@ var render = function() {
                   )
                 }),
                 _vm._v(" "),
-                _c("th", { attrs: { scope: "col", width: "15%" } }, [
-                  _vm._v("Action(s)")
-                ])
+                _c(
+                  "th",
+                  {
+                    staticClass: "text-center",
+                    attrs: { scope: "col", width: "15%" }
+                  },
+                  [_vm._v("Action(s)")]
+                )
               ],
               2
             )

@@ -110,8 +110,9 @@
       <table class="table table-bordered table-hover table-responsive">
         <thead class="thead-light">
           <tr>
-            <th scope="col" width="5%">ID</th>
+            <th class="text-center" scope="col" width="5%">ID</th>
             <th
+              class="text-center"
               scope="col"
               v-for="column in columns"
               :key="column.id"
@@ -126,7 +127,7 @@
                 <i class="fas" :class="sort_icons[column.id]"></i>
               </a>
             </th>
-            <th scope="col" width="15%">Action(s)</th>
+            <th class="text-center" scope="col" width="15%">Action(s)</th>
           </tr>
         </thead>
         <tbody>
@@ -255,13 +256,14 @@ export default {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
-            console.log(error.request);
+            console.log("error.request: ", error.request);
             this.error = error.request.message;
+            this.errors = error.request.message.errors;
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log("Error", error.message);
             this.error = error.message;
-            this.errors = error.errors;
+            this.errors = error.message.errors;
           }
           //   console.log(error.config);
         });
