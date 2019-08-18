@@ -83,7 +83,7 @@ class EventController extends Controller
     {
         $model = $event;
         $action = self::UPDATE;
-        session()->flash('page_task', self::EDIT);
+        session()->flash('page_task', self::EDIT . ' Event');
         session()->flash('page_title', $model->title);
         return view('event.partial', compact('model', 'action'));
     }
@@ -113,7 +113,7 @@ class EventController extends Controller
 
         session()->flash('message', __('messages.success'));
 
-        return redirect()->back();
+        return redirect()->route('events.index');
     }
 
     /**
