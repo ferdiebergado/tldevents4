@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <submit-button text="SAVE"></submit-button>
+    <submit-button icon="fas fa-save" text="SAVE"></submit-button>
 
 </form>
 

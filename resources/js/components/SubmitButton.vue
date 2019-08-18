@@ -1,11 +1,15 @@
 <template>
-  <button type="submit" class="btn btn-primary" :disabled="disabled" @click="submitForm()">{{ txt }}</button>
+  <button type="submit" class="btn btn-primary" :disabled="disabled" @click="submitForm()">
+    <i :class="icon"></i>
+    {{ txt }}
+  </button>
 </template>
 
 <script>
 export default {
   props: {
-    text: String
+    text: String,
+    icon: String
   },
   data() {
     return {
