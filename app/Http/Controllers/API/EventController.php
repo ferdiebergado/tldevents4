@@ -4,9 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Event;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventCollection;
-use Illuminate\Validation\Rule;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class EventController extends Controller
 {
@@ -15,21 +16,30 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $request = app()->make('request');
-        $this->validate($request, [
-            'per_page' => 'required|integer', Rule::in([10, 25, 50, 100]),
-            // 'sort_field' => Rule::in([])
-        ]);
-        $event = Event::query();
-        if ($request->filled('search')) {
-            $event->where('title', 'like', "%$request->search%")->orWhere('venue', 'like', "%$request->search%");
-        }
-        if ($request->filled('sort_field')) {
-            $event->orderBy($request->sort_field, $request->sort_dir);
-        }
-        return new EventCollection($event->paginate($request->per_page));
+        $length = $request->input('length');
+        $column = $request->input('column'); //Index
+        $orderBy = $request->input('dir', 'asc');
+        $searchValue = $request->input('search');
+
+        $query = Event::dataTableQuery($column, $orderBy, $searchValue);
+        $data = $query->paginate($length);
+
+        return new DataTableCollectionResource($data);
+        // $request = app()->make('request');
+        // $this->validate($request, [
+        //     'per_page' => 'required|integer', Rule::in([10, 25, 50, 100]),
+        //     // 'sort_field' => Rule::in([])
+        // ]);
+        // $event = Event::query();
+        // if ($request->filled('search')) {
+        //     $event->where('title', 'like', "%$request->search%")->orWhere('venue', 'like', "%$request->search%");
+        // }
+        // if ($request->filled('sort_field')) {
+        //     $event->orderBy($request->sort_field, $request->sort_dir);
+        // }
+        // return new EventCollection($event->paginate($request->per_page));
     }
 
     /**

@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        JamesDordoy\LaravelVueDatatable\Providers\LaravelVueDatatableServiceProvider::class,
 
         /*
          * Application Service Providers...

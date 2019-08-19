@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8df9dce59e718159aa9f1d0b78eb55a",
+    "content-hash": "f1ab16cf112531e18ee8ac354278f4fa",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -580,6 +580,38 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "jamesdordoy/laravelvuedatatable",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jamesdordoy/Laravel-Vue-Datatables.git",
+                "reference": "070327df87a4f9f3c34ac861bbbe711ef3cdb313"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jamesdordoy/Laravel-Vue-Datatables/zipball/070327df87a4f9f3c34ac861bbbe711ef3cdb313",
+                "reference": "070327df87a4f9f3c34ac861bbbe711ef3cdb313",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jamesdordoy\\laravelvuedatatable\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Home",
+                    "email": "jamesdordoy@gmail.com"
+                }
+            ],
+            "time": "2019-06-14T18:58:46+00:00"
         },
         {
             "name": "laravel/framework",
