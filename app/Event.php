@@ -5,8 +5,6 @@ namespace App;
 use App\Http\BaseModel;
 use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
-// use Illuminate\Database\Eloquent\Model;
-
 class Event extends BaseModel
 {
     use LaravelVueDatatableTrait;

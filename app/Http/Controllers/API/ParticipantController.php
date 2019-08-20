@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Event;
+use App\Participant;
 use Illuminate\Http\Request;
 use App\Traits\DatatableHelper;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
-class EventController extends Controller
+class ParticipantController extends Controller
 {
     use DatatableHelper;
 
@@ -23,7 +23,7 @@ class EventController extends Controller
         $this->validate($request, [
             'length' => 'required|integer', Rule::in([10, 25, 50, 100]),
         ]);
-        $data = $this->buildDatatable($request, new Event);
+        $data = $this->buildDatatable($request, new Participant);
         return new DataTableCollectionResource($data);
     }
 
@@ -41,10 +41,10 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Participant $participant)
     {
         //
     }
@@ -53,10 +53,10 @@ class EventController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Event  $event
+     * @param  \App\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, Participant $participant)
     {
         //
     }
@@ -64,10 +64,10 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy(Participant $participant)
     {
         //
     }

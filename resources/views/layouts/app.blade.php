@@ -53,6 +53,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('events.index') }}" role="button">Events</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('participants.index') }}" role="button">Participants</a>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -87,7 +90,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <strong>Success!</strong> {{ session('message') }}
+                            <i class="far fa-check-circle"></i>&nbsp;<strong>Success!</strong> {{ session('message') }}
                         </div>
                         @endif
 
@@ -98,7 +101,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <strong>Error!</strong> {{ session('server_error') }}
+                            <i class="fas fa-exclamation-circle">&nbsp;</i><strong>Error!</strong> {{ session('server_error') }}
                         </div>
 
                         @endif

@@ -22,10 +22,12 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'verified'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::resource('events', 'EventController')->except(['show']);
+    Route::resource('events', 'EventController')->parameters(['events' => 'id']);
+    Route::resource('participants', 'ParticipantController')->parameters(['participants' => 'id']);
     Route::name('api.')->group(function () {
         Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
             Route::apiResource('events', 'EventController')->only(['index']);
+            Route::apiResource('participants', 'ParticipantController')->only(['index']);
         });
     });
 });

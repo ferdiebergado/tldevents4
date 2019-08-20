@@ -13,6 +13,7 @@ class Controller extends BaseController
 
     const INDEX = 'index';
     const STORE = 'store';
+    const SHOW = "show";
     const EDIT = 'edit';
     const UPDATE = 'update';
 }
