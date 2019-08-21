@@ -52,7 +52,9 @@
 </div>
 </div>
 
-<div class="row">
+<station-select route="{{ route('api.regions.index') }}" divroute="{{ route('api.divisions.index') }}" perpage="50"></station-select>
+
+<div class="form-row">
 
     <div class="col-xs-12 col-sm-12 col-md-6">
         <div class="form-group">

@@ -1,0 +1,4 @@
+- pagination buttons on model partial
+- add $casts to models
+- view composers
+-

@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Http\BaseModel;
+use App\BaseModel;
 use Illuminate\Http\Request;
 
 trait DatatableHelper

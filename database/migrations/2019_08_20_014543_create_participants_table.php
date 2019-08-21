@@ -17,8 +17,14 @@ class CreateParticipantsTable extends Migration
             $table->bigIncrements('id');
             $table->string('lastname');
             $table->string('firstname');
-            $table->string('mi', 2);
-            $table->string('suffix')->nullable();
+            $table->string('mi');
+            $table->integer('suffix')->nullable();
+            $table->string('station')->nullable();
+            $table->bigInteger('region_id')->unsigned();
+            $table->foreign('region_id')->references('id')->on('regions');
+            $table->bigInteger('division_id')->unsigned();
+            $table->foreign('division_id')->references('id')->on('divisions');
+            $table->string('district')->nullable();
             $table->char('sex');
             $table->string('email');
             $table->string('mobile');

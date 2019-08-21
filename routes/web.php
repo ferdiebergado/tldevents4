@@ -24,10 +24,14 @@ Route::group(['middleware' => 'verified'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('events', 'EventController')->parameters(['events' => 'id']);
     Route::resource('participants', 'ParticipantController')->parameters(['participants' => 'id']);
+    Route::resource('regions', 'RegionController')->parameters(['regions' => 'id']);
+    Route::resource('divisions', 'DivisionController')->parameters(['divisions' => 'id']);
     Route::name('api.')->group(function () {
         Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
             Route::apiResource('events', 'EventController')->only(['index']);
             Route::apiResource('participants', 'ParticipantController')->only(['index']);
+            Route::apiResource('regions', 'RegionController')->only(['index']);
+            Route::apiResource('divisions', 'DivisionController')->only(['index']);
         });
     });
 });

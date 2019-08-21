@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\BaseModel;
+use App\BaseModel;
 use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
 class Event extends BaseModel
