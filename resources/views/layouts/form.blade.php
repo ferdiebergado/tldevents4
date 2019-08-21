@@ -8,7 +8,10 @@
         <span class="btn-group" role="group" aria-label="">
             <a class="btn btn-light" href="{{ route($models.'.index') }}" role="button"><i class="far fa-list-alt"></i>&nbsp;List</a>
             @if (Route::is('*.show'))
-                <a class="btn btn-primary" href="{{ route($models.'.edit', ['id' => $model->id]) }}" role="button"><i class="far fa-edit"></i>&nbsp;Edit</a>
+                <a class="btn btn-light" href="{{ route($models.'.edit', ['id' => $model->id]) }}" role="button"><i class="far fa-edit"></i>&nbsp;Edit</a>
+            @endif
+            @if (Route::is('*.edit'))
+                <a class="btn btn-light" href="{{ route($models.'.show', ['id' => $model->id]) }}" role="button"><i class="far fa-eye"></i>&nbsp;View</a>
             @endif
         </span>
     </span>

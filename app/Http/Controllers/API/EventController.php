@@ -23,7 +23,7 @@ class EventController extends Controller
         $this->validate($request, [
             'length' => 'required|integer', Rule::in([10, 25, 50, 100]),
         ]);
-        $data = $this->buildDatatable($request, new Event);
+        $data = $this->buildDatatable($request, new Event, 'participants');
         return new DataTableCollectionResource($data);
     }
 

@@ -33,4 +33,14 @@ class Event extends BaseModel
             'searchable' => false
         ]
     ];
+
+    /**
+     * Get the participants who attended the event.
+     *
+     * @return mixed
+     */
+    public function participants()
+    {
+        return $this->belongsToMany(Participant::class)->withPivot('mobile', 'email')->withTimestamps()->orderBy('lastname')->orderBy('firstname');
+    }
 }

@@ -52,7 +52,7 @@ export default {
         },
         {
           label: "Start Date",
-          width: 12,
+          width: 10,
           name: "start_date",
           filterable: true
         },
@@ -60,10 +60,16 @@ export default {
           label: "End Date",
           name: "end_date",
           filterable: true,
-          width: 12
+          width: 10
         },
         {
-          label: "Action(s)",
+          label: "Pax",
+          name: "participants_count",
+          filterable: true,
+          width: 5
+        },
+        {
+          label: "Task(s)",
           component: ViewButton,
           classes: {
             btn: true,

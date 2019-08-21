@@ -23,7 +23,7 @@
         @endif
     </div>
 
-    <div class="row">
+    <div class="form-row">
         <div class="col-6">
             <div class="form-group">
                 <label for="">Start Date</label>
@@ -53,5 +53,49 @@
             </div>
         </div>
     </div>
+<div class="form-row">
+    <div class="col">
+        @unless (Route::is('*.create'))
 
+        <p>Participants</p>
+
+        @if ($model->participants)
+
+        <table class="table table-sm table-responsive">
+            <thead class="thead-light">
+                <tr>
+                    <th width="10%">ID</th>
+                    <th width="30%">Lastname</th>
+                    <th width="30%">Firstname</th>
+                    <th width="5%">MI</th>
+                    <th width="5%">Sex</th>
+                    <th width="10%">Mobile</th>
+                    <th width="10%">Email</th>
+                    {{-- <th>Mobile</th>
+                    <th>Email</th> --}}
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($model->participants as $p)
+
+                <tr>
+                    <td scope="row">{{ $p->id }}</td>
+                    <td>{{ $p->lastname }}</td>
+                    <td>{{ $p->firstname }}</td>
+                    <td>{{ $p->mi }}</td>
+                    <td>{{ $p->sex }}</td>
+                    <td>{{ $p->mobile }}</td>
+                    <td>{{ $p->email }}</td>
+                    {{-- <td>{{ $e->pivot->mobile }}</td>
+                    <td>{{ $e->pivot->email }}</td> --}}
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        @endif
+
+        @endunless
+    </div>
+</div>
 @endsection

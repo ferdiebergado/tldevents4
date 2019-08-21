@@ -4,11 +4,10 @@ namespace App\Traits;
 
 use App\Http\BaseModel;
 use Illuminate\Http\Request;
-use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 trait DatatableHelper
 {
-    protected function buildDatatable(Request $request, BaseModel $model)
+    protected function buildDatatable(Request $request, BaseModel $model, $with = '', $continue = false)
     {
         $length = $request->input('length');
         $column = $request->input('column'); //Index
@@ -16,6 +15,15 @@ trait DatatableHelper
         $searchValue = $request->input('search');
 
         $query = $model::dataTableQuery($column, $orderBy, $searchValue);
+
+        if (!empty($with)) {
+            $query = $query->withCount($with)->with($with);
+        }
+
+        if ($continue) {
+            return $query;
+        }
+
         return $query->paginate($length);
     }
 }

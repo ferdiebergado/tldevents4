@@ -19,12 +19,13 @@ class Participant extends BaseModel
     ];
 
     protected $appends = [
-        'fullname'
+        'fullname',
+        'last_attended'
     ];
 
     protected $dataTableColumns = [
         'id' => [
-            'searchable' => false,
+            'searchable' => true,
         ],
         'lastname' => [
             'searchable' => true,
@@ -54,8 +55,7 @@ class Participant extends BaseModel
      */
     public function setLastnameAttribute($value)
     {
-        $lastname = $this->ucaseName($value);
-        $this->attributes['lastname'] = $lastname;
+        $this->attributes['lastname'] = title_case(trim($value));
     }
 
     /**
@@ -66,9 +66,7 @@ class Participant extends BaseModel
      */
     public function setFirstnameAttribute($value)
     {
-        $firstname = $this->ucaseName($value);
-
-        $this->attributes['firstname'] = $firstname;
+        $this->attributes['firstname'] = title_case(trim($value));
     }
 
     /**
@@ -79,7 +77,7 @@ class Participant extends BaseModel
      */
     public function setMiAttribute($value)
     {
-        $this->attributes['mi'] = strtoupper(str_replace('.', '', $value));
+        $this->attributes['mi'] = strtoupper(str_replace('.', '', trim($value)));
     }
 
     /**
@@ -107,13 +105,26 @@ class Participant extends BaseModel
         return "{$this->lastname}, {$this->firstname} {$this->mi}";
     }
 
-    protected function ucaseName($name)
+    /**
+     * Get the participant's date of last attendance.
+     *
+     * @return string
+     */
+    public function getLastAttendedAttribute()
     {
-        $names = explode(' ', $name);
-        $ucased = '';
-        foreach ($names as $value) {
-            $ucased .= ucfirst($value) . ' ';
+        $last = $this->events()->first();
+        if ($last) {
+            return $last->end_date;
         }
-        return trim($ucased);
+    }
+
+    /**
+     * Get the events attended by the participant.
+     *
+     * @return mixed
+     */
+    public function events()
+    {
+        return $this->belongsToMany(Event::class)->withPivot('mobile', 'email')->withTimestamps()->latest('end_date');
     }
 }

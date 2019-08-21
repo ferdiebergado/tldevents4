@@ -23,7 +23,7 @@ class ParticipantController extends Controller
         $this->validate($request, [
             'length' => 'required|integer', Rule::in([10, 25, 50, 100]),
         ]);
-        $data = $this->buildDatatable($request, new Participant);
+        $data = $this->buildDatatable($request, new Participant, 'events');
         return new DataTableCollectionResource($data);
     }
 

@@ -2249,16 +2249,21 @@ __webpack_require__.r(__webpack_exports__);
         filterable: true
       }, {
         label: "Start Date",
-        width: 12,
+        width: 10,
         name: "start_date",
         filterable: true
       }, {
         label: "End Date",
         name: "end_date",
         filterable: true,
-        width: 12
+        width: 10
       }, {
-        label: "Action(s)",
+        label: "Pax",
+        name: "participants_count",
+        filterable: true,
+        width: 5
+      }, {
+        label: "Task(s)",
         component: _ViewButton_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
         classes: {
           btn: true,
@@ -2444,7 +2449,19 @@ __webpack_require__.r(__webpack_exports__);
         name: "email",
         filterable: true
       }, {
-        label: "Action(s)",
+        label: "Events",
+        name: "events_count",
+        filterable: true,
+        classes: {
+          badge: true,
+          "badge-primary": true
+        }
+      }, {
+        label: "Last Attended",
+        name: "last_attended",
+        filterable: true
+      }, {
+        label: "Task(s)",
         component: _ViewButton_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
         classes: {
           btn: true,
@@ -46251,7 +46268,7 @@ var render = function() {
       class: _vm.classes,
       attrs: { href: _vm.viewlink, role: "button", title: "View" }
     },
-    [_c("i", { staticClass: "far fa-eye" })]
+    [_c("i", { staticClass: "fas fa-tasks" })]
   )
 }
 var staticRenderFns = []
@@ -46391,7 +46408,7 @@ var render = function() {
       class: _vm.classes,
       attrs: { href: _vm.viewlink, role: "button", title: "View" }
     },
-    [_c("i", { staticClass: "far fa-eye" })]
+    [_c("i", { staticClass: "fas fa-info-circle" })]
   )
 }
 var staticRenderFns = []

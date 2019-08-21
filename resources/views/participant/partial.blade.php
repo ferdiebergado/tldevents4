@@ -2,7 +2,7 @@
 
 @section('formfields')
 
-<div class="row">
+<div class="form-row">
     <div class="col-xs-12 col-sm-12 col-md-4">
         <div class="form-group">
             <label for="lastname">Lastname</label>
@@ -40,7 +40,7 @@
     <div class="col-xs-12 col-sm-12 col-md-2">
         <div class="form-group">
       <label for="sex">Sex</label>
-      <select class="form-control" name="sex" id="sex" {{ Route::is($models.'.show') ? 'readonly' : '' }}>
+      <select class="form-control {{ $errors->has('sex') ? 'is-invalid' : '' }}" name="sex" id="sex" {{ Route::is($models.'.show') ? 'readonly' : '' }}>
           <option value="">Please select...</option>
         <option value="M" {{ !empty(old('sex')) && old('sex') === 'M' ? 'selected': '' }} {{ !empty($model) && $model->sex === 'M' ? 'selected' : ''}}>Male</option>
         <option value="F" {{ !empty(old('sex')) && old('sex') === 'F' ? 'selected': '' }} {{ !empty($model) && $model->sex === 'F' ? 'selected' : ''}}>Female</option>
@@ -86,5 +86,66 @@
         </div>
     </div>
 
+</div>
+
+<div class="form-row">
+    <div class="col">
+        @unless (Route::is('*.create'))
+
+        <p>Events Attended</p>
+
+        @if ($model->events)
+
+        <table class="table table-sm table-responsive">
+            <thead class="thead-light">
+                <tr>
+                    <th width="10%">ID</th>
+                    <th width="40%">Title</th>
+                    <th width="20%">Venue</th>
+                    <th width="15%">Start Date</th>
+                    <th width="15%">End Date</th>
+                    {{-- <th>Mobile</th>
+                    <th>Email</th> --}}
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($model->events as $e)
+
+                <tr>
+                    <td scope="row">{{ $e->id }}</td>
+                    <td>{{ $e->title }}</td>
+                    <td>{{ $e->venue }}</td>
+                    <td>{{ $e->start_date }}</td>
+                    <td>{{ $e->end_date }}</td>
+                    {{-- <td>{{ $e->pivot->mobile }}</td>
+                    <td>{{ $e->pivot->email }}</td> --}}
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        @endif
+
+        @endunless
+
+        @if (Route::is('*.edit') || Route::is('*.create'))
+
+        <div class="form-group">
+          <label for="event">Add Event</label>
+          <select class="form-control {{ $errors->has('event') ? 'is-invalid' : '' }}" name="event" id="event" required>
+              <option value="">Select an event...</option>
+              @forelse ($with as $w)
+              <option value="{{ $w->id }}" {{ !empty(old('event')) && old('event') === $w->id ? 'selected': '' }}><small>{{ $w->title }}</small></option>
+              @empty
+                  {{ __('messages.empty') }}
+              @endforelse
+          </select>
+            @if ($errors->has('event'))
+            <small class="help-text text-danger">{{ $errors->first('event') }}</small>
+            @endif
+        </div>
+
+        @endif
+    </div>
 </div>
 @endsection

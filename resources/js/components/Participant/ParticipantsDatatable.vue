@@ -71,7 +71,21 @@ export default {
           filterable: true
         },
         {
-          label: "Action(s)",
+          label: "Events",
+          name: "events_count",
+          filterable: true,
+          classes: {
+            badge: true,
+            "badge-primary": true
+          }
+        },
+        {
+          label: "Last Attended",
+          name: "last_attended",
+          filterable: true
+        },
+        {
+          label: "Task(s)",
           component: ViewButton,
           classes: {
             btn: true,

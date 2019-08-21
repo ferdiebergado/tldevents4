@@ -1,6 +1,6 @@
 <template>
   <a :class="classes" :href="viewlink" role="button" title="View">
-    <i class="far fa-eye"></i>
+    <i class="fas fa-info-circle"></i>
   </a>
 </template>
 
