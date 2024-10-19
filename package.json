@@ -26,6 +26,6 @@
     },
     "dependencies": {
         "flatpickr": "^4.6.2",
-        "laravel-vue-datatable": "^0.3.3"
+        "laravel-vue-datatable": "^0.6.0"
     }
 }
